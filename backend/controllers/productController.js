@@ -11,9 +11,9 @@ const addNewProduct = async (req, res) => {
     try {
         const product = new Product({ name, description, price, quantity, category });
         await product.save();
-        return res.status(201).json(product);
+        return res.status(200).json(product);
     } catch (error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(400).json({ error: error.message });
     }
 };
 
@@ -21,11 +21,11 @@ const getAllProducts = async (req, res) => {
     try {
         const products = await Product.find()
         if (!products) {
-            return res.status(500).json({ message: "Products not found!" });
+            return res.status(204).json({ message: "Products not found!" });
         }
         res.status(200).json(products);
     } catch (error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(400).json({ error: error.message });
     }
 }
 
@@ -35,11 +35,11 @@ const getProductById = async (req, res) => {
     try {
         const product = await Product.findById(id)
         if (!product) {
-            return res.status(500).json({ error: "Product not found!" });
+            return res.status(204).json({ error: "Product not found!" });
         }
         res.status(200).json(product);
     } catch (error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(400).json({ error: error.message });
     }
 }
 
@@ -57,11 +57,11 @@ const updateProductById = async (req, res) => {
             { new: true },
         )
         if (!product) {
-            return res.status(500).json({ error: "Product not found!" });
+            return res.status(204).json({ error: "Product not found!" });
         }
         res.status(200).json(product)
     } catch(error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(400).json({ error: error.message });
     }
 }
 
@@ -71,20 +71,19 @@ const removeProductById = async(req, res) => {
     try {
         const product = await Product.findByIdAndDelete(id)
         if(!product) {
-            return res.json({ message: `Item with the id ${id} is already deleted!` })
+            return res.status(204).json({ message: `Item with the id ${id} is already deleted!` })
         }
         res.status(200).json(product)
     } catch(error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(400).json({ error: error.message });
     }
 }
 const deleteAllProducts = async(req, res) => {
     try {
         const product = await Product.deleteMany()
-        res.status(200).json({ message: "All products successfully deleted!"})
-        res.status(200).json(product)
+        res.status(200).json({ message: "All products successfully deleted!", product})
     } catch(error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(400).json({ error: error.message });
     }
 }
 
@@ -92,15 +91,15 @@ const findProductsByName = async(req, res) => {
     const {name} = req.query;
     try {
         const products = await Product.find({ "name": new RegExp(name, 'i')})
-        if (!products || products.length === 0) {
+        if (products.length === 0) {
             return (
-                res.status(500)
+                res.status(204)
                 .json({ message: `No product matches the name ${name.charAt(0).toUpperCase() + name.slice(1)} in our database!` })
             )
         }
         res.status(200).json(products)
     } catch(error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(400).json({ error: error.message });
     }
 }
 module.exports = {

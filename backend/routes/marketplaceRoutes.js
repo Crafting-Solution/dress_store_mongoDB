@@ -15,16 +15,16 @@ const {
 } = require('../controllers/categoryController');
 
 // product routes
-router.route('/product')
+router.route('/products')
     .post(addNewProduct)
     .get(getAllProducts)
     .delete(deleteAllProducts)
 
-router.route('/product/name')
+router.route('/products/name')
     .get(findProductsByName)
 
 // product routes with params
-router.route('/product/:id')
+router.route('/products/:id')
     .get(getProductById)
     .put(updateProductById)
     .delete(removeProductById)
