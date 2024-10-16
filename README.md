@@ -1,4 +1,4 @@
-# Dress Store Application
+# Dress Store Application by AUGUSTUS EJIKE - 301348064
 
 ## Overview
 The Dress Store Application is an API built with Node.js, Express.js, and MongoDB that allows you to manage products and categories for a dress store. This application supports creating, reading, updating, and deleting products and categories, with a focus on ensuring that products belong to predefined categories (men, women, teens).
@@ -39,4 +39,4 @@ To start the server:
 ```sh
 npm start
 
-The API will be accessible at http://localhost:4000.
+The API will be accessible at http://localhost:5000.

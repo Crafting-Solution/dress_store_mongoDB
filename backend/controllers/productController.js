@@ -1,4 +1,4 @@
-const Product = require('../models/productModel');
+const Product = require('../models/product');
 const allowedCategories = ["men", "women", "teens"];
 
 const addNewProduct = async (req, res) => {

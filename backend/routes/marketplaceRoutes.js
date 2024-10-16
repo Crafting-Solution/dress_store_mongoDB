@@ -11,27 +11,34 @@ const {
 } = require('../controllers/productController');
 const { 
     addCategory, 
-    getAllCategories 
+    getAllCategories,
+    getCategoryById,
+    updateCategoryById,
+    deleteCategoryById
 } = require('../controllers/categoryController');
 
-// product routes
+// Product routes
 router.route('/products')
-    .post(addNewProduct)
-    .get(getAllProducts)
-    .delete(deleteAllProducts)
+    .post(addNewProduct)    
+    .get(getAllProducts)    
+    .delete(deleteAllProducts); 
 
 router.route('/products/name')
-    .get(findProductsByName)
+    .get(findProductsByName); 
 
-// product routes with params
 router.route('/products/:id')
-    .get(getProductById)
-    .put(updateProductById)
-    .delete(removeProductById)
+    .get(getProductById)   
+    .put(updateProductById) 
+    .delete(removeProductById); 
 
-// category route
-router.route('/category')
-    .post(addCategory)
+// Category routes
+router.route('/categories')
+    .post(addCategory)    
     .get(getAllCategories)
+
+router.route('/categories/:id')
+    .get(getCategoryById) 
+    .put(updateCategoryById) 
+    .delete(deleteCategoryById); 
 
 module.exports = router;
